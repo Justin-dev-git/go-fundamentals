@@ -2,22 +2,22 @@ package main
 
 import (
 	"fmt"
-	"errors"
-)
 
-func divide(a int, b int)(int, error){
-	if b==0{
-		return 0, errors.New("divison by 0")
-	}
-	return a/b, nil
-	
+)
+type Server struct{
+	Name string
+	IP string
+	Active  bool
+}
+func (s *Server) Deactivate(){
+	s.Active=false
 }
 func main(){
-	result, err :=divide(1,1)
-	if err!=nil{
-	fmt.Println("Fehler:",err)
-	return
+	servers:=[]Server{
+		{Name:"Server1", IP: "127.0.0.1", Active: true},
+		{Name:"Server2", IP: "192.168.0.1", Active: true},
 	}
-	fmt.Println("Ergebnis", result)
-	
+	for _, s:= range servers{
+		fmt.Println(s.Name, s.Active)
+	}
 }
