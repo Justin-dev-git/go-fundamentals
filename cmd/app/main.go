@@ -8,7 +8,9 @@ func main(){
 	d := true
 	if c{
 	fmt.Println(c)
+	}else if !d{
+	fmt.Println(d)
 	}else{
-	fmt.Println(!d)
+	fmt.Println(!d)	
 	}
 }
