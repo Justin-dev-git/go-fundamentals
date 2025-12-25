@@ -9,8 +9,11 @@ type Server struct{
 	IP string
 	Active  bool
 }
-func (s *Server) Deactivate(){
+func (s *Server) Stop(){
 	s.Active=false
+}
+func (s *Server) Start(){
+	s.Active=true
 }
 func main(){
 	servers:=[]Server{
@@ -20,4 +23,6 @@ func main(){
 	for _, s:= range servers{
 		fmt.Println(s.Name, s.Active)
 	}
+	servers[0].Stop()
+	fmt.Println(servers[0].Name, servers[0].Active)
 }
