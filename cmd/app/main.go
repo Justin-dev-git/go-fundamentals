@@ -2,27 +2,32 @@ package main
 
 import (
 	"fmt"
-
+	"os"
 )
 type Server struct{
 	Name string
-	IP string
-	Active  bool
-}
-func (s *Server) Stop(){
-	s.Active=false
+	Active bool
 }
 func (s *Server) Start(){
 	s.Active=true
 }
+func (s *Server) Stop(){
+	s.Active=false
+}
 func main(){
-	servers:=[]Server{
-		{Name:"Server1", IP: "127.0.0.1", Active: true},
-		{Name:"Server2", IP: "192.168.0.1", Active: true},
+	server := &Server{Name: "Server 1"}
+	if len(os.Args)<2{
+		fmt.Println("Usage:app start|stop")
+		return
 	}
-	for _, s:= range servers{
-		fmt.Println(s.Name, s.Active)
+	command := os.Args[1]
+	if command == "start"{
+	server.Start()
+	fmt.Println("Server wird gestartet")
+	} else if command == "stop"{
+	server.Stop()
+	fmt.Println("Server wird gestoppt")
+	} else{
+	fmt.Println("Unbekanntes Kommando", command)
 	}
-	servers[0].Stop()
-	fmt.Println(servers[0].Name, servers[0].Active)
 }
