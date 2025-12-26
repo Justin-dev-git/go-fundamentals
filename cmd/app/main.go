@@ -16,8 +16,16 @@ func (s *Server) Start() {
 func (s *Server) Stop() {
 	s.Active = false
 }
+func getEnv(key, fallback string) string {
+	value := os.Getenv(key)
+	if value == "" {
+		return fallback
+	}
+	return value
+}
 func main() {
-	server := &Server{Name: "Server 1"}
+	serverName := getEnv("SERVER_NAME", "default-server")
+	server := &Server{Name: serverName}
 	if len(os.Args) < 2 {
 		fmt.Println("Usage:app start|stop")
 		return
@@ -31,7 +39,7 @@ func main() {
 		server.Stop()
 		fmt.Println("Server wird gestoppt")
 	case "Status":
-		fmt.Println(server.Active)
+		fmt.Println(server.Name, "Status", server.Active)
 	default:
 		fmt.Println("Unbekanntes Kommando")
 	}
