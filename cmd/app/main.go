@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 )
 
@@ -27,21 +28,23 @@ func main() {
 	serverName := getEnv("SERVER_NAME", "default-server")
 	server := &Server{Name: serverName}
 	if len(os.Args) < 2 {
-		fmt.Println("Usage:app start|stop")
-		return
+		fmt.Println("Usage:app start|stop|status")
+		os.Exit(1)
 	}
 	command := os.Args[1]
 	switch command {
-	case "Start":
+	case "start":
 		server.Start()
-		fmt.Println("Server wird gestartet")
-	case "Stop":
+		log.Println("Server wird gestartet")
+	case "stop":
 		server.Stop()
-		fmt.Println("Server wird gestoppt")
-	case "Status":
-		fmt.Println(server.Name, "Status", server.Active)
+		log.Println("Server wird gestoppt")
+	case "status":
+		log.Println(server.Name, "Status", server.Active)
 	default:
-		fmt.Println("Unbekanntes Kommando")
+		log.Println("Unbekanntes Kommando")
+		os.Exit(1)
 	}
+	os.Exit(0)
 
 }
