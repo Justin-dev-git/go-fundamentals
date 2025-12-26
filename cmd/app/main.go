@@ -23,13 +23,17 @@ func main() {
 		return
 	}
 	command := os.Args[1]
-	if command == "start" {
+	switch command {
+	case "Start":
 		server.Start()
 		fmt.Println("Server wird gestartet")
-	} else if command == "stop" {
+	case "Stop":
 		server.Stop()
 		fmt.Println("Server wird gestoppt")
-	} else {
-		fmt.Println("Unbekanntes Kommando", command)
+	case "Status":
+		fmt.Println(server.Active)
+	default:
+		fmt.Println("Unbekanntes Kommando")
 	}
+
 }
